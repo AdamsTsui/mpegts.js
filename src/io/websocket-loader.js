@@ -51,7 +51,7 @@ class WebSocketLoader extends BaseLoader {
 
     open(dataSource) {
         try {
-            let ws = this._ws = new self.WebSocket(dataSource.url);
+            let ws = this._ws = new self.WebSocket(dataSource.url, dataSource.protocol);
             ws.binaryType = 'arraybuffer';
             ws.onopen = this._onWebSocketOpen.bind(this);
             ws.onclose = this._onWebSocketClose.bind(this);
@@ -76,6 +76,7 @@ class WebSocketLoader extends BaseLoader {
         let ws = this._ws;
         if (ws && (ws.readyState === 0 || ws.readyState === 1)) {  // CONNECTING || OPEN
             this._requestAbort = true;
+            console.log('WebSocket 关闭了.')
             ws.close();
         }
 

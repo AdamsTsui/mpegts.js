@@ -42,7 +42,8 @@ class TransmuxingController {
             mediaDataSource.segments = [{
                 duration: mediaDataSource.duration,
                 filesize: mediaDataSource.filesize,
-                url: mediaDataSource.url
+                url: mediaDataSource.url,
+                protocol: mediaDataSource.protocol
             }];
         }
 
@@ -561,7 +562,9 @@ class TransmuxingController {
 
     _reportStatisticsInfo() {
         let info = {};
-
+        if (!this._ioctl) {
+            return
+        }
         info.url = this._ioctl.currentURL;
         info.hasRedirect = this._ioctl.hasRedirect;
         if (info.hasRedirect) {
